@@ -1,0 +1,393 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <!-- <script>
+    if (window.location.protocol !== "https:") {
+      window.location.href = "https://" + window.location.host + window.location.pathname + window.location.search;
+    }
+  </script> -->
+  <title>Profit Pulse LTD </title>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#121212">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Sites meta Data -->
+  <meta name="application-name" content="ProfitPulse">
+  <meta name="author" content="DevCom">
+  <meta name="keywords" content="Crypto, Forex, Stocks, Trading, Business">
+  <meta name="description"
+    content="Invest seamlessly with qualified and experienced in-house traders at ProfitPulse. Whether or not you have experience in with forex trading">
+
+
+
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+
+
+
+  <!-- main css for template -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+
+  <!-- ===============>> Preloader start here <<================= -->
+  <div class="preloader">
+    <img src="{% static 'assets/images/logo/preloader.png' %}" alt="preloader icon">
+  </div>
+  <!-- ===============>> Preloader end here <<================= -->
+
+
+
+  <!-- ===============>> light&dark switch start here <<================= -->
+  <div style="display: none;" class="lightdark-switch">
+    <span class="switch-btn" id="btnSwitch"><img src="{% static 'assets/images/icon/moon.svg' %}"
+        alt="light-dark-switchbtn" class="swtich-icon"></span>
+  </div>
+  <!-- ===============>> light&dark switch start here <<================= -->
+
+
+
+
+
+  <!-- ===============>> Header section start here <<================= -->
+  <header class="header-section header-section--style2">
+    <div class="header-bottom">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="logo">
+            <a href="{% url 'homepage' %}">
+              <img class="dark" src="{% static 'assets/images/logo/logo.png' %}" alt="logo">
+            </a>
+          </div>
+          <div class="menu-area">
+            <ul class="menu menu--style1">
+              <li class="megamenu">
+                <a href="{% url 'homepage' %}">Home</a>
+              </li>
+              <li>
+                <a href="#">Services</a>
+                <ul class="submenu">
+                  <li><a href="{% url 'homepage/services' %}">Services </a></li>
+                  <li><a href="{% url 'homepage/pricing' %}">Plans & Pricing </a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">About</a>
+                <ul class="submenu">
+                  <li><a href="{% url 'homepage/about' %}">About Company</a></li>
+                  <li><a href="{% url 'homepage/team' %}">Team</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="{% url 'homepage/contact' %}">Contact Us</a>
+              </li>
+            </ul>
+
+          </div>
+          <div class="header-action">
+            <div class="menu-area">
+              <div class="header-btn">
+                <a href="{% url 'homepage/signin' %}" class="trk-btn trk-btn--border trk-btn--primary">
+                  <span>Join Now</span>
+                </a>
+              </div>
+
+              <!-- toggle icons -->
+              <div class="header-bar d-lg-none header-bar--style1">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ===============>> Header section end here <<================= -->
+
+
+  <!-- ================> Page header start here <================== -->
+  <section class="page-header bg--cover" style="background-image:url({% static 'assets/images/header/1.png' %})">
+    <div class="container">
+      <div class="page-header__content" data-aos="fade-right" data-aos-duration="1000">
+        <h2>Team</h2>
+        <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item "><a href="{% url 'homepage' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Team</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="page-header__shape">
+        <span class="page-header__shape-item page-header__shape-item--1"><img src="{% static 'assets/images/header/2.png' %}"
+            alt="shape-icon"></span>
+      </div>
+    </div>
+  </section>
+  <!-- ================> Page header end here <================== -->
+
+  {% if messages %}
+  {% for message in messages %}
+  {% if 'newsletter' in message.tags and 'success' in message.tags %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% elif 'newsletter' in message.tags and 'error' in message.tags %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <!-- ===============>> Team section start here <<================= -->
+  <section class="team padding-top padding-bottom bg-color">
+    <div class="section-header section-header--max50">
+      <h2 class="mb-10 mt-minus-5">Meet our <span>Top Traders </span></h2>
+      <p>Get to know the Traders behind your profits from us. We have teamed up a group od intellectual and professional analysts who not only manages client investments but also provide financial advisory, helping you defeat the habit of bad financial decisions . Our traders firstly understands the client needs, worries and burdens. then try to give proper guide on how one can navigate such situations.   </p>
+    </div>
+    <div class="container">
+      <div class="team__wrapper">
+        <div class="row g-4 align-items-center">
+          <div class="col-sm-6 col-lg-3">
+            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="800">
+              <div class="team__item-inner team__item-inner--shape">
+                <div class="team__item-thumb team__item-thumb--style1">
+                  <img src="{% static 'assets/images/team/1.png' %}" alt="Team Image" class="dark">
+                </div>
+                <div class="team__item-content team__item-content--style1">
+                  <div class="team__item-author team__item-author--style1">
+                    <div class="team__item-authorinfo">
+                      <h6 class="mb-1"><a href="{% url 'homepage/team' %}" class="stretched-link">Steph Ravster</a> </h6>
+                      <p class="mb-0">Senior Account Manager</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="900">
+              <div class="team__item-inner team__item-inner--shape">
+                <div class="team__item-thumb team__item-thumb--style1">
+                  <img src="{% static 'assets/images/team/2.png' %}" alt="Team Image" class="dark">
+                </div>
+                <div class="team__item-content team__item-content--style1">
+                  <div class="team__item-author team__item-author--style1">
+                    <div class="team__item-authorinfo">
+                      <h6 class="mb-1"><a href="{% url 'homepage/team' %}" class="stretched-link">Theresa Webb</a> </h6>
+                      <p class="mb-0">Strategic Advisor</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1000">
+              <div class="team__item-inner team__item-inner--shape">
+                <div class="team__item-thumb team__item-thumb--style1">
+                  <img src="{% static 'assets/images/team/3.png' %}" alt="Team Image" class="dark">
+                </div>
+                <div class="team__item-content team__item-content--style1">
+                  <div class="team__item-author team__item-author--style1">
+                    <div class="team__item-authorinfo">
+                      <h6 class="mb-1"><a href="{% url 'homepage/team' %}" class="stretched-link">Kirsty Patel</a> </h6>
+                      <p class="mb-0"> Senior Account Manager</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="team__item team__item--shape" data-aos="fade-up" data-aos-duration="1100">
+              <div class="team__item-inner team__item-inner--shape">
+                <div class="team__item-thumb team__item-thumb--style1">
+                  <img src="{% static 'assets/images/team/4.png' %}" alt="Team Image" class="dark">
+                </div>
+                <div class="team__item-content team__item-content--style1">
+                  <div class="team__item-author team__item-author--style1">
+                    <div class="team__item-authorinfo">
+                      <h6 class="mb-1"><a href="{%url 'homepage/team' %}" class="stretched-link">Albert Flores</a> </h6>
+                      <p class="mb-0">Market Ananlyst</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===============>> Team section start here <<================= -->
+
+
+
+
+  <!-- ===============>> cta section start here <<================= -->
+  <section class="cta padding-top padding-bottom  bg-color">
+    <div class="container">
+      <div class="cta__wrapper">
+        <div class="cta__newsletter justify-content-center">
+          <div class="cta__newsletter-inner" data-aos="fade-up" data-aos-duration="1000">
+            <div class="cta__thumb">
+              <img src="{% static 'assets/images/cta/3.png' %}" alt="cta-thumb">
+            </div>
+            <div class="cta__subscribe">
+              <h2 > <span>Subscribe</span> our news</h2>
+              <p>Hey! Are you tired of missing out on our updates? Subscribe to our news now and stay in the loop!</p>
+              <form class="cta-form cta-form--style2 form-subscribe" method="post" action="{% url 'homepage/subscibe' %}">
+                {% csrf_token %}
+                <div class="cta-form__inner d-sm-flex align-items-center">
+                  <input name="email" required type="email" class="form-control form-control--style2 mb-3 mb-sm-0"
+                    placeholder="Email Address">
+                  <button class="trk-btn  trk-btn--large trk-btn--secondary2" type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="cta__shape">
+          <span class="cta__shape-item cta__shape-item--1"><img src="{% static 'assets/images/cta/2.png' %}" alt="shape icon"></span>
+          <span class="cta__shape-item cta__shape-item--2"><img src="{% static 'assets/images/cta/4.png' %}" alt="shape icon"></span>
+          <span class="cta__shape-item cta__shape-item--3"><img src="{% static 'assets/images/cta/5.png' %}" alt="shape icon"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===============>> cta section start here <<================= -->
+
+
+
+
+
+  <!-- ===============>> footer start here <<================= -->
+  <footer class="footer ">
+    <div class="container">
+      <div class="footer__wrapper">
+        <div class="footer__top footer__top--style1">
+          <div class="row gy-5 gx-4">
+            <div class="col-md-6">
+              <div class="footer__about">
+                <a href="{% url 'homepage' %}" class="footer__about-logo"><img
+                    src="{% static  'assets/images/logo/logo-dark.png' %}" alt="Logo"></a>
+                <p class="footer__about-moto ">Welcome to our investment platform! We offer the best, most reliable
+                  investment plans and trading services around. Open your Purse account now and start finding great deals!
+                </p>
+                <div class="footer__app">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+              <div class="footer__links">
+                <div class="footer__links-tittle">
+                  <h6>Quick links</h6>
+                </div>
+                <div class="footer__links-content">
+                  <ul class="footer__linklist">
+                    <li class="footer__linklist-item"> <a href="{% url 'homepage/about' %}">About Us</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="{% url 'homepage/team' %}">Teams</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="{% url 'homepage/services' %}">Services</a> </li>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+  
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+              <div class="footer__links">
+                <div class="footer__links-tittle">
+                  <h6>Support</h6>
+                </div>
+                <div class="footer__links-content">
+                  <ul class="footer__linklist">
+                    <li class="footer__linklist-item"> <a href="{% url 'terms' %}">Terms & Conditions</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="{% url 'terms' %}">Privacy Policy</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="#faqs">FAQs</a></li>
+                  </ul>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <div class="footer__end">
+            <div class="footer__end-copyright">
+              <p> ©
+                <span id="yearElement" class=" mb-0">0000 </span> All rights reserved.
+              </p>
+            </div>
+            <script>
+              let yearData = new Date().getFullYear();
+              let yearElement = document.getElementById('yearElement')
+              yearElement.innerHTML = yearData 
+            </script>
+            <div>
+              <ul class="social">
+                <li class="social__item">
+                  <a href="https://facebook.com/page.profitpulse"
+                    class="social__link social__link--style22"><i class="fab fa-facebook-f"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__shape">
+      <span class="footer__shape-item footer__shape-item--1"><img src="{% static 'assets/images/footer/1.png' %}"
+          alt="shape icon"></span>
+      <span class="footer__shape-item footer__shape-item--2"> <span></span> </span>
+    </div>
+  </footer>
+  <!-- ===============>> footer end here <<================= -->
+
+
+
+  <!-- ===============>> scrollToTop start here <<================= -->
+  <a href="#" class="scrollToTop scrollToTop--style1"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+  <!-- ===============>> scrollToTop ending here <<================= -->
+
+
+  <!-- vendor plugins -->
+
+  <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/all.min.js' %}"></script>
+  <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/aos.js' %}"></script>
+  <script src="{% static 'assets/js/fslightbox.js' %}"></script>
+  <script src="{% static 'assets/js/purecounter_vanilla.js' %}"></script>
+  
+  
+  
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+</body>
+
+</html>

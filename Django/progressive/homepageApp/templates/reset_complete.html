@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" theme="dark" data-bs-theme="dark">
+
+<head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function expiredCallback() {
+            alert('Captcha response expired. please try again!');
+        }
+    </script>
+    <!-- <script>
+    if (window.location.protocol !== "https:") {
+      window.location.href = "https://" + window.location.host + window.location.pathname + window.location.search;
+    }
+  </script> -->
+    <style>
+        @media only screen and (min-width: 768px) {
+            .hide {
+                display: none;
+            }
+        }
+
+
+        .error-message,
+        .success-message {
+
+            position: fixed;
+            top: 0;
+            right: 0;
+            animation: slideIn 2s forwards, bounce 2s 1s forwards, slideOut 2s 11s forwards;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(-20px);
+            }
+        }
+
+        @keyframes slideOut {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+    <title>Profit Pulse LTD </title>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#121212">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Sites meta Data -->
+    <meta name="application-name" content="ProfitPulse">
+    <meta name="author" content="DevCom">
+    <meta name="keywords" content="Crypto, Forex, Stocks, Trading, Business">
+    <meta name="description"
+        content="Invest seamlessly with qualified and experienced in-house traders at ProfitPulse. Whether or not you have experience in with forex trading">
+
+
+
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+
+
+
+    <!-- main css for template -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+
+    <!-- ===============>> Preloader start here <<================= -->
+    <div class="preloader">
+        <img src="{% static 'assets/images/logo/preloader.png' %}" alt="preloader icon">
+    </div>
+    <!-- ===============>> Preloader end here <<================= -->
+
+
+
+    <!-- ===============>> light&dark switch start here <<================= -->
+    <div style="display: none!important;" class="lightdark-switch">
+        <span class="switch-btn" id="btnSwitch"><img src="{% static 'assets/images/icon/moon.svg' %}"
+                alt="light-dark-switchbtn" class="swtich-icon"></span>
+    </div>
+    <!-- ===============>> light&dark switch start here <<================= -->
+
+
+
+    <!-- ===============>> Header section start here <<================= -->
+    <header class="header-section header-section--style2">
+        <div class="header-bottom">
+            <div class="container">
+                <div class="header-wrapper">
+                    <div class="logo">
+                        <a href="{% url 'homepage' %}">
+                            <img class="dark" src="{% static 'assets/images/logo/logo.png' %}" alt="logo">
+                        </a>
+                    </div>
+                    <div class="menu-area">
+                        <ul class="menu menu--style1">
+                            <li class="megamenu">
+                                <a href="{% url 'homepage' %}">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">Services</a>
+                                <ul class="submenu">
+                                    <li><a href="{% url 'homepage/services' %}">Services </a></li>
+                                    <li><a href="{% url 'homepage/pricing' %}">Plans & Pricing </a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">About</a>
+                                <ul class="submenu">
+                                    <li><a href="{% url 'homepage/about' %}">About Company</a></li>
+                                    <li><a href="{% url 'homepage/team' %}">Team</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{% url 'homepage/contact' %}">Contact Us</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="header-action">
+                        <div class="menu-area">
+                            <div class="header-btn">
+                                <a href="{% url 'homepage/signup' %}" class="trk-btn trk-btn--border trk-btn--primary">
+                                    <span>Register Now</span>
+                                </a>
+                            </div>
+
+                            <!-- toggle icons -->
+                            <div class="header-bar d-lg-none header-bar--style1">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ===============>> Header section end here <<================= -->
+
+    <!-- ================> Page header start here <================== -->
+    <section class="page-header bg--cover" style="background-image:url({% static 'assets/images/header/1.png' %})">
+        <div class="container">
+            <div class="page-header__content" data-aos="fade-right" data-aos-duration="1000">
+                <h2>Reset Password</h2>
+                <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item "><a href="{% url 'homepage' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Password Reset</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="page-header__shape">
+                <span class="page-header__shape-item page-header__shape-item--1"><img
+                        src="{% static 'assets/images/header/2.png' %}" alt="shape-icon"></span>
+            </div>
+        </div>
+    </section>
+    <!-- ================> Page header end here <================== -->
+
+
+
+
+
+    <!-- ===============>> account start here <<================= -->
+    <section class="account padding-top padding-bottom sec-bg-color2">
+
+        <section class="pricing padding-top padding-bottom">
+            {% for message in messages %}
+            {% if 'error' in message.tags and 'login' in message.tags %}
+            <div class="alert alert-warning error-message" role="alert">
+                {{ message }}
+            </div>
+            {% elif 'success' in message.tags and 'login' in message.tags %}
+            <div class="alert alert-success success-message" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div class="container">
+                <div class="account__wrapper" data-aos="fade-up" data-aos-duration="800">
+                    <div class="row g-4">
+                        <div class="col-lg-12">
+                            <div class="account__content account__content--style1">
+
+                                <!-- account tittle -->
+
+                                <div class="account__header">
+                                    <h2>New password has been set.</h2>
+                                    <div class="account__divider account__divider--style1">
+                                        <span><i class="fas fa-key"></i></span>
+                                    </div>
+
+                                    <p>Your password has been reset with new keys. Please keep them private and never share to anyone irrespective of the request reason, report such requests to support team.</p>
+                                </div>
+
+                                <a href="{% url 'signin' %}">
+                                    <button
+                                        class="trk-btn trk-btn--border trk-btn--primary d-block mt-4">Login Now
+                                    </button>
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account__shape">
+                <span class="account__shape-item account__shape-item--1"><img
+                        src="{% static 'assets/images/contact/4.png' %}" alt="shape-icon"></span>
+            </div>
+        </section>
+        <!-- ===============>> account end here <<================= -->
+
+
+
+
+        <!-- ===============>> footer start here <<================= -->
+        <footer class="footer ">
+            <div class="container">
+                <div class="footer__wrapper">
+                    <div class="footer__top footer__top--style1">
+                        <div class="row gy-5 gx-4">
+                            <div class="col-md-6">
+                                <div class="footer__about">
+                                    <a href="{% url 'homepage' %}" class="footer__about-logo"><img
+                                            src="{% static  'assets/images/logo/logo-dark.png' %}" alt="Logo"></a>
+                                    <p class="footer__about-moto ">
+                                        Welcome to our investment platform! We offer the
+                                        best, most reliable investment plans and trading services around. Open your
+                                        Purse account now and
+                                        start finding great deals!
+                                    </p>
+                                    <div class="footer__app">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-6">
+                                <div class="footer__links">
+                                    <div class="footer__links-tittle">
+                                        <h6>Quick links</h6>
+                                    </div>
+                                    <div class="footer__links-content">
+                                        <ul class="footer__linklist">
+                                            <li class="footer__linklist-item"> <a
+                                                    href="{% url 'homepage/about' %}">About Us</a>
+                                            </li>
+                                            <li class="footer__linklist-item"> <a
+                                                    href="{% url 'homepage/team' %}">Teams</a>
+                                            </li>
+                                            <li class="footer__linklist-item"> <a
+                                                    href="{% url 'homepage/services' %}">Services</a> </li>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-6">
+                                <div class="footer__links">
+                                    <div class="footer__links-tittle">
+                                        <h6>Support</h6>
+                                    </div>
+                                    <div class="footer__links-content">
+                                        <ul class="footer__linklist">
+                                            <li class="footer__linklist-item"> <a href="{% url 'terms' %}">Terms &
+                                                    Conditions</a>
+                                            </li>
+                                            <li class="footer__linklist-item"> <a href="{% url 'terms' %}">Privacy
+                                                    Policy</a>
+                                            </li>
+                                            <li class="footer__linklist-item"> <a href="#faqs">FAQs</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer__bottom">
+                        <div class="footer__end">
+                            <div class="footer__end-copyright">
+                                <p> ©
+                                    <span id="yearElement" class=" mb-0">0000 </span> All rights reserved.
+                                </p>
+                            </div>
+                            <script>
+                                let yearData = new Date().getFullYear();
+                                let yearElement = document.getElementById('yearElement')
+                                yearElement.innerHTML = yearData 
+                            </script>
+                            <div>
+                                <ul class="social">
+                                    <li class="social__item">
+                                        <a href="https://facebook.com/page.profitpulse"
+                                            class="social__link social__link--style22"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__shape">
+                <span class="footer__shape-item footer__shape-item--1"><img
+                        src="{% static 'assets/images/footer/1.png' %}" alt="shape icon"></span>
+                <span class="footer__shape-item footer__shape-item--2"> <span></span> </span>
+            </div>
+        </footer>
+        <!-- ===============>> footer end here <<================= -->
+
+
+
+        <!-- vendor plugins -->
+
+        <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/all.min.js' %}"></script>
+        <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'assets/js/aos.js' %}"></script>
+        <script src="{% static 'assets/js/fslightbox.js' %}"></script>
+        <script src="{% static 'assets/js/purecounter_vanilla.js' %}"></script>
+
+
+
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+</body>
+
+</html>

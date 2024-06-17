@@ -1,0 +1,977 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script>
+    function expiredCallback() {
+      alert('Captcha response expired. please try again!');
+    }
+  </script>
+  <!-- <script>
+    if (window.location.protocol !== "https:") {
+      window.location.href = "https://" + window.location.host + window.location.pathname + window.location.search;
+    }
+  </script> -->
+  <style>
+    @media only screen and (min-width: 768px) {
+      .hide{
+         display: none;
+        }
+      }
+
+    .error-message, .success-message {
+      position: fixed;
+      top: 0;
+      right: 0;
+      animation: slideIn 2s forwards, bounce 2s 1s forwards, slideOut 2s 11s forwards;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(-20px);
+      }
+    }
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+  </style>
+  <title>Investment plans - Profit Pulse LTD </title>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#121212">
+  <meta name="theme" content="dark">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Sites meta Data -->
+  <meta name="application-name" content="ProfitPulse">
+  <meta name="author" content="DevCom">
+  <meta name="theme" content="dark">
+  <meta name="keywords" content="Crypto, Forex, Stocks, Trading, Business">
+  <meta name="description"
+    content="Invest seamlessly with qualified and experienced in-house traders at ProfitPulse. Whether or not you have experience in with forex trading">
+
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+
+
+
+  <!-- main css for template -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+
+<body>
+
+  <!-- ===============>> Preloader start here <<================= -->
+  <div class="preloader">
+    <img src="{% static 'assets/images/logo/preloader.png' %}" alt="preloader icon">
+  </div>
+  <!-- ===============>> Preloader end here <<================= -->
+
+
+
+  <!-- ===============>> light&dark switch start here <<================= -->
+  <div style="display: none !important;" class="lightdark-switch">
+    <span class="switch-btn" id="btnSwitch"><img src="{% static 'assets/images/icon/moon.svg' %}"
+        alt="light-dark-switchbtn" class="swtich-icon"></span>
+  </div>
+  <!-- ===============>> light&dark switch start here <<================= -->
+
+
+  <!-- ===============>> Header section start here <<================= -->
+  <header class="header-section header-section--style2">
+    <div class="header-bottom">
+      <div class="container">
+        <div class="header-wrapper">
+          <div class="logo">
+            <a href="{% url 'homepage' %}">
+              <img class="dark" src="{% static 'assets/images/logo/logo.png' %}" alt="logo">
+            </a>
+          </div>
+          <div class="menu-area">
+            <ul class="menu menu--style1">
+              <li class="megamenu">
+                <a href="{% url 'homepage' %}">Home</a>
+              </li>
+              <li>
+                <a href="#">Services</a>
+                <ul class="submenu">
+                  <li><a href="{% url 'homepage/services' %}">Services </a></li>
+                  <li><a href="{% url 'homepage/pricing' %}">Plans & Pricing </a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">About</a>
+                <ul class="submenu">
+                  <li><a href="{% url 'homepage/about' %}">About Company</a></li>
+                  <li><a href="{% url 'homepage/team' %}">Team</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="{% url 'homepage/contact' %}">Contact Us</a>
+              </li>
+            </ul>
+
+          </div>
+          <div class="header-action">
+            <div class="menu-area">
+              <div class="header-btn">
+                <a href="{% url 'homepage/signin' %}" class="trk-btn trk-btn--border trk-btn--primary">
+                  <span>Join Now</span>
+                </a>
+              </div>
+
+              <!-- toggle icons -->
+              <div class="header-bar d-lg-none header-bar--style1">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ===============>> Header section end here <<================= -->
+
+  <!-- ================> Page header start here <================== -->
+  <section class="page-header bg--cover" style="background-image:url(assets/images/header/1.png)">
+    <div class="container">
+      <div class="page-header__content" data-aos="fade-right" data-aos-duration="1000">
+        <h2>Pricing</h2>
+        <nav style="--bs-breadcrumb-divider: '/';" aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item "><a href="{% url 'homepage' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Pricing</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="page-header__shape">
+        <span class="page-header__shape-item page-header__shape-item--1"><img src="{% static 'assets/images/header/2.png' %}"
+            alt="shape-icon"></span>
+      </div>
+    </div>
+  </section>
+  <!-- ================> Page header end here <================== -->
+
+
+
+
+
+  <!-- ===============>> Pricing section start here <<================= -->
+  <section class="pricing padding-top padding-bottom">
+    {% for message in messages %}
+    {% if 'error' in message.tags and 'secondary' in message.tags %}
+    <div class="alert alert-warning error-message" role="alert">
+      {{ message }}
+    </div>
+    {% elif 'success' in message.tags and 'secondary' in message.tags %}
+    <div class="alert alert-success success-message" role="alert">
+      {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <div class="section-header section-header--max50">
+      <h2 class="mb-10 mt-minus-5">Our <span>investment </span>plans</h2>
+      <p>We offer the best pricings around - from micro to Platinum plans, we have carefully tailored our plans to meet everyone's financial capability without necessarily breaking the banks! Profits are withdraw-able after a full trade session which last for a minimum duration of 5 days</p>
+    </div>
+    <div class="container">
+      <div class="pricing__wrapper">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing__item" data-aos="fade-right" data-aos-duration="1000">
+              <div class="pricing__item-inner">
+                <div class="pricing__item-content">
+  
+                  <!-- pricing top part -->
+                  <div class="pricing__item-top">
+                    <h6 class="mb-15">Micro Plan</h6>
+                    <h3 class="mb-25">£499.00/<span>7 days</span></h3>
+                  </div>
+  
+                  <!-- pricing middle part -->
+                  <div class="pricing__item-middle">
+                    <ul class="pricing__list">
+                      <li class="pricing__list-item">
+                        <span>
+                          <img src="{% static 'assets/images/icon/check.svg' %}" alt="check" class="dark">
+                          Daily growth of up to 0.6%
+                        </span>
+                      </li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Bonus on deposits</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        24/7 technical support</li>
+                      <li class="pricing__list-item">
+                        <span>
+                          <img src="{% static 'assets/images/icon/check.svg' %}" alt="check" class="dark">
+                        </span>
+                        Insured investment plan
+                      </li>
+                    </ul>
+                  </div>
+  
+                  <!-- pricing bottom part -->
+                  <div class="pricing__item-bottom">
+                    <a href="{% url 'deposit' %}" class="trk-btn trk-btn--outline">
+                      Choose Plan
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing__item " data-aos="fade-up" data-aos-duration="1000">
+              <div class="pricing__item-inner active">
+                <div class="pricing__item-content">
+  
+                  <!-- pricing top part -->
+                  <div class="pricing__item-top">
+                    <h6 class="mb-15">Standard Plan </h6>
+                    <h3 class="mb-25">£999/<span>7days</span> </h3>
+                  </div>
+  
+                  <!-- pricing middle part -->
+                  <div class="pricing__item-middle">
+                    <ul class="pricing__list">
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        daily growth of up to 0.6%</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Unlimited learning access</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        24/7 technical support</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Designated account manager</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        free trading courses</li>
+                    </ul>
+  
+                  </div>
+  
+                  <!-- pricing bottom part -->
+                  <div class="pricing__item-bottom">
+                    <a href="{% url 'deposit' %}" class="trk-btn trk-btn--outline active">Choose Plan</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing__item" data-aos="fade-left" data-aos-duration="1000">
+              <div class="pricing__item-inner">
+                <div class="pricing__item-content">
+  
+                  <!-- pricing top part -->
+                  <div class="pricing__item-top">
+                    <h6 class="mb-15">premium</h6>
+                    <h3 class="mb-25">£5,000/<span>25days</span> </h3>
+                  </div>
+  
+                  <!-- pricing middle part -->
+                  <div class="pricing__item-middle">
+                    <ul class="pricing__list">
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        With all standard features</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Daily growth of up to 0.65%</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        24/7 technical support</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Designated account manager</li>
+                    </ul>
+  
+                  </div>
+  
+                  <!-- pricing bottom part -->
+                  <div class="pricing__item-bottom">
+                    <a href="{% url 'deposit' %}" class="trk-btn trk-btn--outline">Choose Plan</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  -->
+    <br><br>
+    <div class="section-header section-header--max50">
+      <p>Meet our Tiered plans, ranging from £10,000 to 5 BTC, we vision and guarantee a minimum daily return of 0.68% withdraw-able at the end of a trade session which lasts for a period of days. Leverage the opportunity in front of you now. We will be that desirable partner in your financial journey!</p>
+    </div>
+    <div class="container">
+      <div class="pricing__wrapper">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing__item" data-aos="fade-right" data-aos-duration="1000">
+              <div class="pricing__item-inner">
+                <div class="pricing__item-content">
+    
+                  <!-- pricing top part -->
+                  <div class="pricing__item-top">
+                    <h6 class="mb-15">Elite capital gains</h6>
+                    <h3 class="mb-25">£10,000.00/<span>30-days</span></h3>
+                  </div>
+    
+                  <!-- pricing middle part -->
+                  <div class="pricing__item-middle">
+                    <ul class="pricing__list">
+                      <li class="pricing__list-item">
+                        <span>
+                          <img src="{% static 'assets/images/icon/check.svg' %}" alt="check" class="dark">
+                          Daily growth of up to 0.68%
+                        </span>
+                      </li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Bonus on deposits</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        24/7 technical support</li>
+                      <li class="pricing__list-item">
+                        <span>
+                          <img src="{% static 'assets/images/icon/check.svg' %}" alt="check" class="dark">
+                        </span>
+                        Insured investment plan
+                      </li>
+                    </ul>
+                  </div>
+    
+                  <!-- pricing bottom part -->
+                  <div class="pricing__item-bottom">
+                    <a href="{% url 'deposit' %}" class="trk-btn trk-btn--outline">
+                      Choose Plan
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing__item " data-aos="fade-up" data-aos-duration="1000">
+              <div class="pricing__item-inner active">
+                <div class="pricing__item-content">
+    
+                  <!-- pricing top part -->
+                  <div class="pricing__item-top">
+                    <h6 class="mb-15">Premium Yields</h6>
+                    <h3 class="mb-25">£20,000/<span>30-days</span> </h3>
+                  </div>
+    
+                  <!-- pricing middle part -->
+                  <div class="pricing__item-middle">
+                    <ul class="pricing__list">
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        daily growth of up to 0.68%</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Unlimited learning access</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        24/7 technical support</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Designated account manager</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        free trading courses</li>
+                    </ul>
+    
+                  </div>
+    
+                  <!-- pricing bottom part -->
+                  <div class="pricing__item-bottom">
+                    <a href="{% url 'deposit' %}" class="trk-btn trk-btn--outline active">Choose Plan</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="pricing__item" data-aos="fade-left" data-aos-duration="1000">
+              <div class="pricing__item-inner">
+                <div class="pricing__item-content">
+    
+                  <!-- pricing top part -->
+                  <div class="pricing__item-top">
+                    <h6 class="mb-15">Signature portfolio</h6>
+                    <h3 class="mb-25">£1 BTC/<span>30-days</span> </h3>
+                  </div>
+    
+                  <!-- pricing middle part -->
+                  <div class="pricing__item-middle">
+                    <ul class="pricing__list">
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        With all standard features</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Daily growth of up to 0.65%</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        24/7 technical support</li>
+                      <li class="pricing__list-item"><span><img src="{% static 'assets/images/icon/check.svg' %}"
+                            alt="check" class="dark"></span>
+                        Designated account manager</li>
+                    </ul>
+    
+                  </div>
+    
+                  <!-- pricing bottom part -->
+                  <div class="pricing__item-bottom">
+                    <a href="{% url 'deposit' %}" class="trk-btn trk-btn--outline">Choose Plan</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+    
+    
+    
+      </div>
+    </div>
+
+
+    <div class="pricing__shape">
+      <span class="pricing__shape-item pricing__shape-item--1"> <span></span> </span>
+      <span class="pricing__shape-item pricing__shape-item--2"> <img src="{% static 'assets/images/icon/1.png' %}"
+          alt="shape-icon">
+      </span>
+    </div>
+  </section>
+  <!-- ===============>> Pricing section start here <<================= -->
+
+
+
+
+
+<!-- ===============>> Testimonial section start here <<================= -->
+<section class="testimonial padding-top padding-bottom-style2 bg-color">
+  <div class="container">
+    <div class="section-header d-md-flex align-items-center justify-content-between">
+      <div class="section-header__content">
+        <h2 class="mb-10">connect with <span>our Clients </span></h2>
+        <p class="mb-0">We love connecting with our clients to hear about their experiences and how we can improve.
+          Below are few reviews from our surveys.
+        </p>
+      </div>
+      <div class="section-header__action">
+        <div class="swiper-nav">
+          <button class="swiper-nav__btn testimonial__slider-prev"><i class="fa-solid fa-angle-left"></i></button>
+          <button class="swiper-nav__btn testimonial__slider-next active"><i
+              class="fa-solid fa-angle-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial__wrapper" data-aos="fade-up" data-aos-duration="1000">
+      <div class="testimonial__slider swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial__item testimonial__item--style1">
+              <div class="testimonial__item-inner">
+                <div class="testimonial__item-content">
+                  <p class="mb-0">
+                    Thanks to Profit Pulse, I've seen remarkable growth in my investments. Their strategies are
+                    effective and well-executed,
+                    leading to impressive returns. I'm grateful for their guidance and professionalism throughout the
+                    process..
+                  </p>
+                  <div class="testimonial__footer">
+                    <div class="testimonial__author">
+                      <div class="testimonial__author-thumb">
+                        <img src="{% static 'assets/images/testimonial/1.png' %}" alt="author">
+                      </div>
+                      <div class="testimonial__author-designation">
+                        <h6>Mobarok Hossain</h6>
+                        <span>Investor</span>
+                      </div>
+                    </div>
+                    <div class="testimonial__quote">
+                      <span><i class="fa-solid fa-quote-right"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial__item testimonial__item--style1">
+              <div class="testimonial__item-inner">
+                <div class="testimonial__item-content">
+                  <p class="mb-0">
+                    Since connecting with Profit Pulse, I've experienced remarkable returns on my investments. Their
+                    expertise in investment
+                    strategies is evident, and I'm thrilled with the outcomes. Thank you for providing such an
+                    outstanding service.
+                  </p>
+                  <div class="testimonial__footer">
+                    <div class="testimonial__author">
+                      <div class="testimonial__author-thumb">
+                        <img src="{% static 'assets/images/testimonial/2.png' %}" alt="author">
+                      </div>
+                      <div class="testimonial__author-designation">
+                        <h6>Shaibu Inu</h6>
+                        <span>Investor</span>
+                      </div>
+                    </div>
+                    <div class="testimonial__quote">
+                      <span><i class="fa-solid fa-quote-right"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial__item testimonial__item--style1">
+              <div class="testimonial__item-inner">
+                <div class="testimonial__item-content">
+                  <p class="mb-0">
+                    I couldn't be happier with the returns I've seen since partnering with Profit Pulse. Their
+                    investment strategies are
+                    top-notch, and the results speak for themselves. I'm grateful to be a beneficiary of this great
+                    service.
+                  </p>
+                  <div class="testimonial__footer">
+                    <div class="testimonial__author">
+                      <div class="testimonial__author-thumb">
+                        <img src="{% static 'assets/images/testimonial/6.png' %}" alt="author">
+                      </div>
+                      <div class="testimonial__author-designation">
+                        <h6>Belal Hossain</h6>
+                        <span>Investor </span>
+                      </div>
+                    </div>
+                    <div class="testimonial__quote">
+                      <span><i class="fa-solid fa-quote-right"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ===============>> Testimonial section start here <<================= -->
+
+
+
+
+
+  <!-- ===============>>registration section start here <<================= -->
+  <section class="hide cta padding-top padding-bottom  bg-color">
+    <div  class="container">
+      <div class="cta__wrapper">
+        <div class="cta__newsletter justify-content-center">
+          <div class="cta__newsletter-inner" data-aos="fade-up" data-aos-duration="1000">
+            <div class="cta__thumb">
+              <img src="{% static 'assets/images/cta/3.png' %}" alt="cta-thumb">
+            </div>
+            <div class="cta__subscribe">
+              <h2><span>Open your </span> Investment account now. </h2>
+              <p>Have you found a suitable plan for yourself? Don't wait further, open an account now, slots might be waiting for you!</p>
+              <form class="cta-form cta-form--style2 form-subscribe" id="myForm" method="post" action="{% url 'registration' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="cta-form__inner d-sm-flex align-items-center">
+
+                    <input class="form-control form-control--style2 mb-3 mb-sm-0" type="text" name="firstname" placeholder="First Name">
+
+                    <input class="form-control form-control--style2 mb-3 mb-sm-0" type="text" name="lastname" placeholder="Last Name">
+                    
+                    <input class="form-control form-control--style2 mb-3 mb-sm-0" type="text" name="username" placeholder="Username">
+                    
+                    <input class="form-control form-control--style2 mb-3 mb-sm-0" type="email" name="email" placeholder="Email">
+
+                    <select class="form-control form-control--style2 mb-3 mb-sm-0" name="nationality">
+
+                      <option value="" selected disabled>Select a Country</option>
+                        <option value="united-kingdom">United Kingdom</option>
+                        <option value="united-states">United States</option>
+                        <option disabled value="">- - -</option>
+                        <option value="afghanistan">Afghanistan</option>
+                        <option value="albania">Albania</option>
+                        <option value="algeria">Algeria</option>
+                        <option value="andorra">Andorra</option>
+                        <option value="angola">Angola</option>
+                        <option value="antigua-and-barbuda">Antigua and Barbuda</option>
+                        <option value="argentina">Argentina</option>
+                        <option value="armenia">Armenia</option>
+                        <option value="australia">Australia</option>
+                        <option value="austria">Austria</option>
+                        <option value="azerbaijan">Azerbaijan</option>
+                        <option value="bahamas">Bahamas</option>
+                        <option value="bahrain">Bahrain</option>
+                        <option value="bangladesh">Bangladesh</option>
+                        <option value="barbados">Barbados</option>
+                        <option value="belarus">Belarus</option>
+                        <option value="belgium">Belgium</option>
+                        <option value="belize">Belize</option>
+                        <option value="benin">Benin</option>
+                        <option value="bhutan">Bhutan</option>
+                        <option value="bolivia">Bolivia</option>
+                        <option value="bosnia-and-herzegovina">Bosnia and Herzegovina</option>
+                        <option value="botswana">Botswana</option>
+                        <option value="brazil">Brazil</option>
+                        <option value="brunei">Brunei</option>
+                        <option value="bulgaria">Bulgaria</option>
+                        <option value="burkina-faso">Burkina Faso</option>
+                        <option value="burundi">Burundi</option>
+                        <option value="cabo-verde">Cabo Verde</option>
+                        <option value="cambodia">Cambodia</option>
+                        <option value="cameroon">Cameroon</option>
+                        <option value="canada">Canada</option>
+                        <option value="central-african-republic">Central African Republic</option>
+                        <option value="chad">Chad</option>
+                        <option value="chile">Chile</option>
+                        <option value="china">China</option>
+                        <option value="colombia">Colombia</option>
+                        <option value="comoros">Comoros</option>
+                        <option value="congo-democratic-republic">Congo (Democratic Republic)</option>
+                        <option value="congo-republic">Congo (Republic)</option>
+                        <option value="costa-rica">Costa Rica</option>
+                        <option value="cote-divoire">Côte d'Ivoire</option>
+                        <option value="croatia">Croatia</option>
+                        <option value="cuba">Cuba</option>
+                        <option value="cyprus">Cyprus</option>
+                        <option value="czech-republic">Czech Republic</option>
+                        <option value="denmark">Denmark</option>
+                        <option value="djibouti">Djibouti</option>
+                        <option value="dominica">Dominica</option>
+                        <option value="dominican-republic">Dominican Republic</option>
+                        <option value="east-timor">East Timor (Timor-Leste)</option>
+                        <option value="ecuador">Ecuador</option>
+                        <option value="egypt">Egypt</option>
+                        <option value="el-salvador">El Salvador</option>
+                        <option value="equatorial-guinea">Equatorial Guinea</option>
+                        <option value="eritrea">Eritrea</option>
+                        <option value="estonia">Estonia</option>
+                        <option value="eswatini">Eswatini</option>
+                        <option value="ethiopia">Ethiopia</option>
+                        <option value="fiji">Fiji</option>
+                        <option value="finland">Finland</option>
+                        <option value="france">France</option>
+                        <option value="gabon">Gabon</option>
+                        <option value="gambia">Gambia</option>
+                        <option value="georgia">Georgia</option>
+                        <option value="germany">Germany</option>
+                        <option value="ghana">Ghana</option>
+                        <option value="greece">Greece</option>
+                        <option value="grenada">Grenada</option>
+                        <option value="guatemala">Guatemala</option>
+                        <option value="guinea">Guinea</option>
+                        <option value="guinea-bissau">Guinea-Bissau</option>
+                        <option value="guyana">Guyana</option>
+                        <option value="haiti">Haiti</option>
+                        <option value="honduras">Honduras</option>
+                        <option value="hungary">Hungary</option>
+                        <option value="iceland">Iceland</option>
+                        <option value="india">India</option>
+                        <option value="indonesia">Indonesia</option>
+                        <option value="iran">Iran</option>
+                        <option value="iraq">Iraq</option>
+                        <option value="ireland">Ireland</option>
+                        <option value="israel">Israel</option>
+                        <option value="italy">Italy</option>
+                        <option value="jamaica">Jamaica</option>
+                        <option value="japan">Japan</option>
+                        <option value="jordan">Jordan</option>
+                        <option value="kazakhstan">Kazakhstan</option>
+                        <option value="kenya">Kenya</option>
+                        <option value="kiribati">Kiribati</option>
+                        <option value="north-korea">Korea (North)</option>
+                        <option value="south-korea">Korea (South)</option>
+                        <option value="kosovo">Kosovo</option>
+                        <option value="kuwait">Kuwait</option>
+                        <option value="kyrgyzstan">Kyrgyzstan</option>
+                        <option value="laos">Laos</option>
+                        <option value="latvia">Latvia</option>
+                        <option value="lebanon">Lebanon</option>
+                        <option value="lesotho">Lesotho</option>
+                        <option value="liberia">Liberia</option>
+                        <option value="libya">Libya</option>
+                        <option value="liechtenstein">Liechtenstein</option>
+                        <option value="lithuania">Lithuania</option>
+                        <option value="luxembourg">Luxembourg</option>
+                        <option value="madagascar">Madagascar</option>
+                        <option value="malawi">Malawi</option>
+                        <option value="malaysia">Malaysia</option>
+                        <option value="maldives">Maldives</option>
+                        <option value="mali">Mali</option>
+                        <option value="malta">Malta</option>
+                        <option value="marshall-islands">Marshall Islands</option>
+                        <option value="mauritania">Mauritania</option>
+                        <option value="mauritius">Mauritius</option>
+                        <option value="mexico">Mexico</option>
+                        <option value="micronesia">Micronesia</option>
+                        <option value="moldova">Moldova</option>
+                        <option value="monaco">Monaco</option>
+                        <option value="mongolia">Mongolia</option>
+                        <option value="montenegro">Montenegro</option>
+                        <option value="morocco">Morocco</option>
+                        <option value="mozambique">Mozambique</option>
+                        <option value="myanmar">Myanmar</option>
+                        <option value="namibia">Namibia</option>
+                        <option value="nauru">Nauru</option>
+                        <option value="nepal">Nepal</option>
+                        <option value="netherlands">Netherlands</option>
+                        <option value="new-zealand">New Zealand</option>
+                        <option value="nicaragua">Nicaragua</option>
+                        <option value="niger">Niger</option>
+                        <option value="nigeria">Nigeria</option>
+                        <option value="north-macedonia">North Macedonia</option>
+                        <option value="norway">Norway</option>
+                        <option value="oman">Oman</option>
+                        <option value="pakistan">Pakistan</option>
+                        <option value="palau">Palau</option>
+                        <option value="panama">Panama</option>
+                        <option value="papua-new-guinea">Papua New Guinea</option>
+                        <option value="paraguay">Paraguay</option>
+                        <option value="peru">Peru</option>
+                        <option value="philippines">Philippines</option>
+                        <option value="poland">Poland</option>
+                        <option value="portugal">Portugal</option>
+                        <option value="qatar">Qatar</option>
+                        <option value="romania">Romania</option>
+                        <option value="russia">Russia</option>
+                        <option value="rwanda">Rwanda</option>
+                        <option value="saint-kitts-and-nevis">Saint Kitts and Nevis</option>
+                        <option value="saint-lucia">Saint Lucia</option>
+                        <option value="saint-vincent-and-the-grenadines">Saint Vincent and the Grenadines</option>
+                        <option value="samoa">Samoa</option>
+                        <option value="san-marino">San Marino</option>
+                        <option value="sao-tome-and-principe">São Tomé and Príncipe</option>
+                        <option value="saudi-arabia">Saudi Arabia</option>
+                        <option value="senegal">Senegal</option>
+                        <option value="serbia">Serbia</option>
+                        <option value="seychelles">Seychelles</option>
+                        <option value="sierra-leone">Sierra Leone</option>
+                        <option value="singapore">Singapore</option>
+                        <option value="slovakia">Slovakia</option>
+                        <option value="slovenia">Slovenia</option>
+                        <option value="solomon-islands">Solomon Islands</option>
+                        <option value="somalia">Somalia</option>
+                        <option value="south-africa">South Africa</option>
+                        <option value="south-sudan">South Sudan</option>
+                        <option value="spain">Spain</option>
+                      
+                        <option value="sri-lanka">Sri Lanka</option>
+                        <option value="sudan">Sudan</option>
+                        <option value="suriname">Suriname</option>
+                        <option value="sweden">Sweden</option>
+                        <option value="switzerland">Switzerland</option>
+                        <option value="syria">Syria</option>
+                        <option value="taiwan">Taiwan</option>
+                        <option value="tajikistan">Tajikistan</option>
+                        <option value="tanzania">Tanzania</option>
+                        <option value="thailand">Thailand</option>
+                        <option value="togo">Togo</option>
+                        <option value="tonga">Tonga</option>
+                        <option value="trinidad-and-tobago">Trinidad and Tobago</option>
+                        <option value="tunisia">Tunisia</option>
+                        <option value="turkey">Turkey</option>
+                        <option value="turkmenistan">Turkmenistan</option>
+                        <option value="tuvalu">Tuvalu</option>
+                        <option value="uganda">Uganda</option>
+                        <option value="ukraine">Ukraine</option>
+                        <option value="united-arab-emirates">United Arab Emirates</option>
+                        <option value="uruguay">Uruguay</option>
+                        <option value="uzbekistan">Uzbekistan</option>
+                        <option value="vanuatu">Vanuatu</option>
+                        <option value="vatican-city">Vatican City</option>
+                        <option value="venezuela">Venezuela</option>
+                        <option value="vietnam">Vietnam</option>
+                        <option value="yemen">Yemen</option>
+                        <option value="zambia">Zambia</option>
+                        <option value="zimbabwe">Zimbabwe</option>
+                      </select>
+                    
+                    <input accept="image/*" style="display: none;" id="picture" type="file" name="profile_picture" class="form-control form-control--style2 mb-3 mb-sm-0">
+                    <label id="my-label" onclick="input()" style="text-align: left;" class="text-muted form-control form-control--style2 mb-3 mb-sm-0" for="picture">Click to select/capture a face-only photo</label>
+                      <script>
+                        function input(){
+                          document.getElementById("picture").addEventListener("input", function () {
+                            document.getElementById("picture").style.display = "block";
+                            document.getElementById("my-label").style.display = "none";
+
+                          });
+                        }
+                      </script>
+                    <input autocomplete="off" class="form-control form-control--style2 mb-3 mb-sm-0" type="password" name="password1" placeholder="Password">
+                    
+                    <input autocomplete="off" class="form-control form-control--style2 mb-3 mb-sm-0" type="password" name="password2" placeholder="Confirm Password">
+                    <!--  -->
+                    
+                    <div data-expired-callback="expiredCallback" class="g-recaptcha" data-type="checkbox" data-sitekey="6LcN17EpAAAAAA3wPdf-AORtDnZXPv-3YaTyYmeE"></div>
+                    <br>
+                    
+                  <button style="min-width: 90%;" class="trk-btn  trk-btn--large trk-btn--secondary2" type="submit">Submit</button>
+                 
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="cta__shape">
+          <span class="cta__shape-item cta__shape-item--1"><img src="{% static 'assets/images/cta/2.png' %}" alt="shape icon"></span>
+          <span class="cta__shape-item cta__shape-item--2"><img src="{% static 'assets/images/cta/4.png' %}" alt="shape icon"></span>
+          <span class="cta__shape-item cta__shape-item--3"><img src="{% static 'assets/images/cta/5.png' %}" alt="shape icon"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===============>> registration section end here <<================= -->
+
+
+  <!-- ===============>> footer start here <<================= -->
+  <footer class="footer ">
+    <div class="container">
+      <div class="footer__wrapper">
+        <div class="footer__top footer__top--style1">
+          <div class="row gy-5 gx-4">
+            <div class="col-md-6">
+              <div class="footer__about">
+                <a href="{% url 'homepage' %}" class="footer__about-logo"><img
+                    src="{% static  'assets/images/logo/logo-dark.png' %}" alt="Logo"></a>
+                <p class="footer__about-moto ">Welcome to our investment platform! We offer the best, most reliable
+                  investment plans and trading services around. Open your Purse account now and start finding great deals!
+                </p>
+                <div class="footer__app">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+              <div class="footer__links">
+                <div class="footer__links-tittle">
+                  <h6>Quick links</h6>
+                </div>
+                <div class="footer__links-content">
+                  <ul class="footer__linklist">
+                    <li class="footer__linklist-item"> <a href="{% url 'homepage/about' %}">About Us</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="{% url 'homepage/team' %}">Teams</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="{% url 'homepage/services' %}">Services</a> </li>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+  
+            </div>
+            <div class="col-md-2 col-sm-4 col-6">
+              <div class="footer__links">
+                <div class="footer__links-tittle">
+                  <h6>Support</h6>
+                </div>
+                <div class="footer__links-content">
+                  <ul class="footer__linklist">
+                    <li class="footer__linklist-item"> <a href="{% url 'terms' %}">Terms & Conditions</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="{% url 'terms' %}">Privacy Policy</a>
+                    </li>
+                    <li class="footer__linklist-item"> <a href="#faqs">FAQs</a></li>
+                  </ul>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <div class="footer__end">
+            <div class="footer__end-copyright">
+              <p> ©
+                <span id="yearElement" class=" mb-0">0000 </span> All rights reserved.
+              </p>
+            </div>
+            <script>
+              let yearData = new Date().getFullYear();
+              let yearElement = document.getElementById('yearElement')
+              yearElement.innerHTML = yearData 
+            </script>
+            <div>
+              <ul class="social">
+                <li class="social__item">
+                  <a href="https://facebook.com/page.profitpulse" class="social__link social__link--style22"><i
+                      class="fab fa-facebook-f"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__shape">
+      <span class="footer__shape-item footer__shape-item--1"><img src="{% static 'assets/images/footer/1.png' %}"
+          alt="shape icon"></span>
+      <span class="footer__shape-item footer__shape-item--2"> <span></span> </span>
+    </div>
+  </footer>
+  <!-- ===============>> footer end here <<================= -->
+
+
+  <!-- ===============>> scrollToTop start here <<================= -->
+  <a href="#" class="scrollToTop scrollToTop--style1"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+  <!-- ===============>> scrollToTop ending here <<================= -->
+
+  <!-- vendor plugins -->
+
+  <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/all.min.js' %}"></script>
+  <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/aos.js' %}"></script>
+  <script src="{% static 'assets/js/fslightbox.js' %}"></script>
+  <script src="{% static 'assets/js/purecounter_vanilla.js' %}"></script>
+
+
+
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+</body>
+
+</html>
